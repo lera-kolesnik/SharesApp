@@ -1,2 +1,4 @@
 # SharesApp
-application for monitoring share prices on exchange for Yandex School of Mobile Development
+Application for monitoring share prices on exchange for Yandex School of Mobile Development
+### Here are some screenshots of the app:
+
