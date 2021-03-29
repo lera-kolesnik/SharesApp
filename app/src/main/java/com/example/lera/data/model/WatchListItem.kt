@@ -3,6 +3,10 @@ package com.example.lera.data.model;
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 
+/**
+ * Data entity to hold data about watch list item.
+ * TODO Further extend logic to render saved items.
+ */
 @Entity
 data class WatchListItem (
     @Id var id: Long = 0,

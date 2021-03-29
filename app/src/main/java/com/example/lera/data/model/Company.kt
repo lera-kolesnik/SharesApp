@@ -4,6 +4,9 @@ package com.example.lera.data.model
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id
 
+/**
+ * Data entity with general info about the company.
+ */
 @Entity
 data class Company (
         @Id var id: Long = 0,

@@ -20,11 +20,12 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import java.text.DecimalFormat
-import javax.inject.Inject
 
+/**
+ * Holds view logic to present details about stock.
+ */
 class ViewStock : AppCompatActivity(), ViewStockView {
 
-    @Inject
     lateinit var presenter: ViewStockPresenter
     var name: String? = ""
     var symbol: String? = ""
@@ -133,15 +134,13 @@ class ViewStock : AppCompatActivity(), ViewStockView {
     }
 
     override fun onItemAddedToWatchList(status: Boolean) {
-        val state = if (status) " " else " not "
-        Toast.makeText(this, "Item" + state + "added to watchlist", Toast.LENGTH_LONG).show()
     }
 
     override fun onWatchListItemsExceeded() {
-        Toast.makeText(this, "You can only watch up to 5 companies", Toast.LENGTH_LONG).show()
+
     }
 
     override fun onItemInWatchList() {
-        Toast.makeText(this, "You are watching this item", Toast.LENGTH_LONG).show()
+
     }
 }

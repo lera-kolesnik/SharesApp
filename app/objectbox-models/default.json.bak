@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:6764567583276686821",
-      "lastPropertyId": "7:3696303515388992450",
+      "lastPropertyId": "8:2056639156661886267",
       "name": "Company",
       "properties": [
         {
@@ -32,17 +32,26 @@
         {
           "id": "5:7948775102454449354",
           "name": "price",
-          "type": 9
+          "type": 8,
+          "flags": 2
         },
         {
           "id": "6:5494618916617907466",
           "name": "priceChange",
-          "type": 9
+          "type": 8,
+          "flags": 2
         },
         {
           "id": "7:3696303515388992450",
           "name": "changePercent",
-          "type": 9
+          "type": 8,
+          "flags": 2
+        },
+        {
+          "id": "8:2056639156661886267",
+          "name": "iconResId",
+          "type": 5,
+          "flags": 2
         }
       ],
       "relations": []

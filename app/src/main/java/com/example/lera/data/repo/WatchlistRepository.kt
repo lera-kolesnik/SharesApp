@@ -12,6 +12,9 @@ import com.example.lera.data.model.WatchListItem_
 import io.objectbox.Box
 import io.objectbox.kotlin.boxFor
 
+/**
+ * A database proxy to access 'saved' items.
+ */
 class WatchListRepository(database: DatabaseManager){
 
     private val box: Box<WatchListItem> = database.boxStore().boxFor()

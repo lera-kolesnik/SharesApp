@@ -9,6 +9,9 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlin.math.round
 
+/**
+ * Implements presenter interface to serve Search view.
+ */
 class SearchPresenterImpl(
     private var companyRepository: CompanyRepository,
     private var watchListRepository: WatchListRepository
@@ -16,11 +19,6 @@ class SearchPresenterImpl(
 
     var view: SearchView? = null
     private var searchTerm = ""
-
-//    private val companies = DEFAULT_SYMBOLS
-//        .map { defaultSymbol -> companyRepository.search(defaultSymbol) }
-//        .filter { it.isNotEmpty() }
-//        .map { it.first() }
 
     override fun loadCompanies() {
         GlobalScope.launch(Dispatchers.IO) {
@@ -73,9 +71,5 @@ class SearchPresenterImpl(
 
     override fun drop() {
         this.view = null
-    }
-
-    companion object {
-        val DEFAULT_SYMBOLS = listOf("YNDX", "AAPL", "GOOGL", "AMZN", "MSFT", "TSLA")
     }
 }

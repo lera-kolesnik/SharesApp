@@ -8,7 +8,9 @@ import com.example.lera.data.repo.WatchListRepository
 import com.example.lera.ui.SearchPresenterImpl
 import com.example.lera.ui.ViewStockPresenterImpl
 
-
+/**
+ * Holds dependencies that are shared for necessary views.
+ */
 class AppComponent(app: Application){
 
     private val database: DatabaseManager = AppDatabaseManager(app.applicationContext)

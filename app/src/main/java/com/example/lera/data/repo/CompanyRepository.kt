@@ -1,12 +1,14 @@
 package com.example.lera.data.repo
 
-import android.util.Log
 import com.example.lera.data.DatabaseManager
 import com.example.lera.data.model.Company
 import com.example.lera.data.model.Company_
 import io.objectbox.Box
 import io.objectbox.kotlin.boxFor
 
+/**
+ * A database proxy to load and search company queries.
+ */
 class CompanyRepository(private val database: DatabaseManager) {
 
     private val box: Box<Company> = database.boxStore().boxFor()
@@ -38,12 +40,17 @@ class CompanyRepository(private val database: DatabaseManager) {
                 .build()
                 .find()
                 .take(10)
-            Log.wtf("CompanyRepository", "$result")
             result
         }
     }
 
     companion object {
-        val DEFAULT_SYMBOLS = listOf("YNDX", "AAPL", "GOOGL", "AMZN", "MSFT", "TSLA")
+        const val YNDX = "YNDX"
+        const val AAPL = "AAPL"
+        const val GOOGL = "GOOGL"
+        const val AMZN = "AMZN"
+        const val MSFT = "MSFT"
+        const val TSLA = "TSLA"
+        val DEFAULT_SYMBOLS = listOf(YNDX, AAPL, GOOGL, AMZN, MSFT, TSLA)
     }
 }

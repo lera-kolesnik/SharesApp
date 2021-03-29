@@ -60,6 +60,7 @@
         android:id="@+id/graph"
         android:layout_width="match_parent"
         android:layout_height="300dp"
+        android:padding="10dp"
         app:layout_constraintTop_toBottomOf="@id/percentChangeTv"
         app:layout_constraintBottom_toTopOf="@id/stock_details"/>
 
@@ -80,6 +81,7 @@
 
     <include
         android:id="@+id/stock_details"
+        android:padding="5dp"
         layout="@layout/stock_values_content_layout"/>
 
     <ProgressBar

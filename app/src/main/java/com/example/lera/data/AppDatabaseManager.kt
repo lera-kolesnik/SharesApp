@@ -11,7 +11,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-
+/**
+ * Database object that stores necessary objects with a help of [BoxStore]
+ */
 class AppDatabaseManager(var context : Context): DatabaseManager {
 
      var boxStore: BoxStore
@@ -34,7 +36,6 @@ class AppDatabaseManager(var context : Context): DatabaseManager {
     }
 
     private fun insertCompaniesIntoDatabase(result: String){
-        Log.wtf("CompanyRepository", "insertCompaniesIntoDatabase $result")
         val companyBox: Box<Company> = boxStore.boxFor()
         companyBox.removeAll()
         val lines = result.split("\n")

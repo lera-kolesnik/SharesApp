@@ -3,6 +3,9 @@ package com.example.lera.data
 import java.io.IOException
 import java.net.URL
 
+/**
+ * Downloads Nasdaq companies with additional info.
+ */
 object NasdaqDownloader {
 
     fun download(): String? {

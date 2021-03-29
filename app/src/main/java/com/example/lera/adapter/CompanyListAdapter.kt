@@ -1,7 +1,6 @@
 package com.example.lera.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +10,19 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lera.R
 import com.example.lera.data.model.Company
+import com.example.lera.data.repo.CompanyRepository.Companion.AAPL
+import com.example.lera.data.repo.CompanyRepository.Companion.AMZN
+import com.example.lera.data.repo.CompanyRepository.Companion.GOOGL
+import com.example.lera.data.repo.CompanyRepository.Companion.MSFT
+import com.example.lera.data.repo.CompanyRepository.Companion.TSLA
+import com.example.lera.data.repo.CompanyRepository.Companion.YNDX
 import com.squareup.picasso.Picasso
 
+/**
+ * Adapter with logic to render stock views correctly.
+ * The colour of item background depends on the order.
+ * Adapter is updated whenever we receive new data changes.
+ */
 class CompanyListAdapter(
     private val context: Context,
     private var companies: List<Company> = listOf()
@@ -68,16 +78,25 @@ class CompanyListAdapter(
             val sign = if (isNeural || isNegative) "" else "+"
             companyPriceChange.text = "$sign$priceChange ($changePercent%)"
         }
-
-        Picasso.get()
-            .load(company.url)
-            .placeholder(R.drawable.ic_search)
-            .resize(50, 50)
-            .into(companyIcon);
+        val iconResId = when (company.symbol) {
+            TSLA -> R.drawable.ic_tsla
+            AMZN -> R.drawable.ic_amzn
+            AAPL -> R.drawable.ic_aapl
+            GOOGL -> R.drawable.ic_googl
+            MSFT -> R.drawable.ic_msft
+            YNDX -> R.drawable.ic_yndx
+            else -> null
+        }
+        iconResId?.let {
+            companyIcon.setImageResource(it)
+        } ?: Picasso.get()
+                .load(company.url)
+                .placeholder(R.drawable.ic_search)
+                .resize(50, 50)
+                .into(companyIcon)
     }
 
     fun updateList(list: List<Company>){
-        Log.wtf("Adapter", "$list")
         companies = list
     }
 

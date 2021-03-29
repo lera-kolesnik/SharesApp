@@ -4,16 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.lera.app.App
 import com.example.lera.R
 import com.example.lera.adapter.CompanyListAdapter
+import com.example.lera.app.App
 import com.example.lera.data.model.Company
 import com.example.lera.util.ClickListener
 import com.example.lera.util.Constants.EXTRA_STOCK_NAME
@@ -25,6 +24,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
+/**
+ * Holds logic to display Search view with list of stocks
+ */
 class Search : AppCompatActivity(), SearchView, CoroutineScope {
 
     lateinit var searchEt: EditText
@@ -100,14 +102,12 @@ class Search : AppCompatActivity(), SearchView, CoroutineScope {
     }
 
     override fun onSearchResult(list: List<Company>) {
-        Log.wtf("Search", "$list")
         viewAdapter.updateList(list)
         viewAdapter.notifyDataSetChanged()
         companyListRv.scheduleLayoutAnimation()
     }
 
     override fun onPriceResult(list: List<Company>) {
-        Log.wtf("onPriceResult", "$list")
         viewAdapter.updateList(list)
         viewAdapter.notifyDataSetChanged()
     }
