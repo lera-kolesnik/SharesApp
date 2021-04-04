@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
     android:layout_marginBottom="16dp"
     android:layout_marginRight="16dp"
     android:layout_marginLeft="16dp"
-    android:layout_width="match_parent"
-    android:layout_height="70dp"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/companyIcon"
         android:layout_width="52dp"
         android:layout_height="52dp"
         android:layout_margin="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:shapeAppearanceOverlay="@style/roundedCorners" />
 
     <TextView
         android:id="@+id/companySymbolTv"
@@ -23,14 +25,23 @@
         android:layout_height="wrap_content"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        android:text="AAPL"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="@color/stock_title_color"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintVertical_bias="0"
         app:layout_constraintStart_toEndOf="@id/companyIcon"
         app:layout_constraintTop_toTopOf="@id/companyIcon"
-        app:layout_constraintBottom_toTopOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageView
+        android:id="@+id/favourite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@drawable/ic_star_unselected"
+        app:layout_constraintStart_toEndOf="@id/companySymbolTv"
+        app:layout_constraintTop_toTopOf="@id/companySymbolTv"
+        app:layout_constraintBottom_toBottomOf="@id/companySymbolTv"/>
 
     <TextView
         android:id="@+id/companyNameTv"
@@ -38,11 +49,10 @@
         android:layout_height="wrap_content"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        android:text="Apple Inc..merkmerkmekrgmkergmkermgkermgkermgkermgker."
         android:ellipsize="end"
         android:textSize="12sp"
         android:maxLines="1"
-        android:textColor="@color/stock_title_color"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintVertical_bias="0.05"
         app:layout_constraintStart_toEndOf="@id/companyIcon"
         app:layout_constraintEnd_toStartOf="@id/companyPriceChange"
@@ -56,7 +66,7 @@
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
         android:textSize="18sp"
-        android:textColor="@color/stock_title_color"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintVertical_bias="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/companyIcon"

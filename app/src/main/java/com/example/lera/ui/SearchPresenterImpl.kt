@@ -17,14 +17,13 @@ class SearchPresenterImpl(
     private var watchListRepository: WatchListRepository
 ): SearchPresenter {
 
-    var view: SearchView? = null
+    var views: MutableList<SearchView> = mutableListOf()
     private var searchTerm = ""
 
     override fun loadCompanies() {
         GlobalScope.launch(Dispatchers.IO) {
             companyRepository.loadCompanies()?.let { companies ->
-                fetchQuoteForCompanies(companies)
-                GlobalScope.launch(Dispatchers.Main) { view?.onSearchResult(companies) }
+                updateSearchResult(companies)
             }
         }
     }
@@ -32,14 +31,23 @@ class SearchPresenterImpl(
     override fun search(filter: String) {
         searchTerm = filter
         if (searchTerm == "") {
-            view?.onSearchResult(listOf())
+            views.forEach { view -> view.onSearchResult(listOf())}
             return
         }
         GlobalScope.launch(Dispatchers.IO) {
             companyRepository.search(filter)?.let { companies ->
-                fetchQuoteForCompanies(companies)
-                GlobalScope.launch(Dispatchers.Main) { view?.onSearchResult(companies) }
+                updateSearchResult(companies)
             }
+        }
+    }
+
+    private fun updateSearchResult(companies: List<Company>) {
+        companies.forEach { company ->
+            company.isFavourite = watchListRepository.exists(company)
+        }
+        fetchQuoteForCompanies(companies)
+        GlobalScope.launch(Dispatchers.Main) {
+            views.forEach { view -> view.onSearchResult(companies) }
         }
     }
 
@@ -52,7 +60,9 @@ class SearchPresenterImpl(
                     stockToUpdate?.price = r.price.round(2)
                     stockToUpdate?.priceChange = r.change.round(2)
                     stockToUpdate?.changePercent = r.changePercent.round(2)
-                    GlobalScope.launch(Dispatchers.Main) { view?.onPriceResult(list) }
+                    GlobalScope.launch(Dispatchers.Main) {
+                        views.forEach { view -> view.onPriceResult(list) }
+                    }
                 },
                 Fetcher.FailureCallback { e -> println(e.message) }
             )
@@ -66,10 +76,10 @@ class SearchPresenterImpl(
     }
 
     override fun attach(view: SearchView) {
-        this.view = view
+        this.views.add(view)
     }
 
-    override fun drop() {
-        this.view = null
+    override fun drop(view: SearchView) {
+        this.views.remove(view)
     }
 }

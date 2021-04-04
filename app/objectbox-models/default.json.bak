@@ -46,12 +46,6 @@
           "name": "changePercent",
           "type": 8,
           "flags": 2
-        },
-        {
-          "id": "8:2056639156661886267",
-          "name": "iconResId",
-          "type": 5,
-          "flags": 2
         }
       ],
       "relations": []
@@ -125,7 +119,9 @@
   "modelVersionParserMinimum": 5,
   "retiredEntityUids": [],
   "retiredIndexUids": [],
-  "retiredPropertyUids": [],
+  "retiredPropertyUids": [
+    2056639156661886267
+  ],
   "retiredRelationUids": [],
   "version": 1
 }

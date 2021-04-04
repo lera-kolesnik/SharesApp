@@ -18,8 +18,8 @@
         android:drawablePadding="10dp"
         android:hint="Find company or ticker"
         android:inputType="text"
-        android:textColor="@color/stock_title_color"
-        android:textColorHint="@color/stock_title_color"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="@color/colorPrimary"
         android:layout_margin="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
@@ -28,17 +28,27 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/companyListRv"/>
+        app:layout_constraintBottom_toTopOf="@id/pager"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/companyListRv"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabTextAppearance="@style/TabStyle"
+        app:tabSelectedTextColor="@color/colorPrimary"
+        app:tabTextColor="@color/dark_grey"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchEt"/>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layoutAnimation="@anim/layout_leftslide"
         app:layout_constraintVertical_bias="0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchEt"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tab_layout"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

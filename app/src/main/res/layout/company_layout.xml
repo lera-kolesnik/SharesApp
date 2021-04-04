@@ -4,7 +4,7 @@
     android:layout_height="70dp"
     android:layout_marginHorizontal="15dp"
     android:layout_marginVertical="4dp"
-    android:background="@drawable/background_stock"
+    android:background="@drawable/background_stock_light"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <include layout="@layout/company_layout_content"/>

@@ -7,6 +7,8 @@ import com.example.lera.data.repo.CompanyRepository
 import com.example.lera.data.repo.WatchListRepository
 import com.example.lera.ui.SearchPresenterImpl
 import com.example.lera.ui.ViewStockPresenterImpl
+import com.example.lera.ui.WatchListPresenter
+import com.example.lera.ui.WatchListPresenterImpl
 
 /**
  * Holds dependencies that are shared for necessary views.
@@ -20,6 +22,10 @@ class AppComponent(app: Application){
 
     fun searchPresenter() : SearchPresenterImpl {
         return SearchPresenterImpl(companyRepository, watchListRepository)
+    }
+
+    fun watchListPresenter() : WatchListPresenterImpl {
+        return WatchListPresenterImpl(watchListRepository)
     }
 
     fun stockPresenter(): ViewStockPresenterImpl {

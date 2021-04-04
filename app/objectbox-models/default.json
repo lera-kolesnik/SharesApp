@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:6764567583276686821",
-      "lastPropertyId": "8:2056639156661886267",
+      "lastPropertyId": "9:5545569769863659688",
       "name": "Company",
       "properties": [
         {
@@ -46,6 +46,12 @@
           "name": "changePercent",
           "type": 8,
           "flags": 2
+        },
+        {
+          "id": "9:5545569769863659688",
+          "name": "isFavourite",
+          "type": 1,
+          "flags": 4
         }
       ],
       "relations": []

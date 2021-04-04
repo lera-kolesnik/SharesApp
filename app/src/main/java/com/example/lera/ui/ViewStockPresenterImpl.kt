@@ -3,12 +3,16 @@ package com.example.lera.ui
 import com.crazzyghost.alphavantage.AlphaVantageException
 import com.crazzyghost.alphavantage.Fetcher
 import com.crazzyghost.alphavantage.timeseries.response.QuoteResponse
+import com.crazzyghost.alphavantage.timeseries.response.StockUnit
 import com.crazzyghost.alphavantage.timeseries.response.TimeSeriesResponse
 import com.example.lera.data.model.Company
 import com.example.lera.data.repo.WatchListRepository
+import com.example.lera.ui.ViewStockSetting.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ViewStockPresenterImpl(
     private var repository: WatchListRepository
@@ -21,7 +25,7 @@ class ViewStockPresenterImpl(
         this.view = view
     }
 
-    override fun drop() {
+    override fun drop(view: ViewStockView) {
         this.view = null
     }
 
@@ -33,26 +37,26 @@ class ViewStockPresenterImpl(
         )
     }
 
-    override fun fetchDaily(symbol: String?) {
-        repository.getDaily(
-            symbol,
-            Fetcher.SuccessCallback { r -> onTimeSeriesResponse(r) },
-            Fetcher.FailureCallback { e -> onError(e) }
-        )
-    }
-
-    override fun fetchWeekly(symbol: String?) {
-        repository.getWeekly(
-            symbol,
-            Fetcher.SuccessCallback { r -> onTimeSeriesResponse(r) },
-            Fetcher.FailureCallback { e -> onError(e) }
-        )
-    }
-
-    override fun fetchMonthly(symbol: String?) {
+    override fun fetchAll(symbol: String?) {
         repository.getMonthly(
             symbol,
-            Fetcher.SuccessCallback { r -> onTimeSeriesResponse(r) },
+            Fetcher.SuccessCallback { r -> onTimeSeriesResponse(r, ALL) },
+            Fetcher.FailureCallback { e -> onError(e) }
+        )
+    }
+
+    override fun fetchIntraMonthly(symbol: String?) {
+        repository.getDaily(
+            symbol,
+            Fetcher.SuccessCallback { r -> onTimeSeriesResponse(r, INTRA_MONTHLY) },
+            Fetcher.FailureCallback { e -> onError(e) }
+        )
+    }
+
+    override fun fetchIntraWeekly(symbol: String?) {
+        repository.getDaily(
+            symbol,
+            Fetcher.SuccessCallback { r -> onTimeSeriesResponse(r, INTRA_WEEKLY) },
             Fetcher.FailureCallback { e -> onError(e) }
         )
     }
@@ -60,7 +64,7 @@ class ViewStockPresenterImpl(
     override fun fetchIntraday(symbol: String?) {
         repository.getIntraday(
             symbol,
-            Fetcher.SuccessCallback { r -> onTimeSeriesResponse(r) },
+            Fetcher.SuccessCallback { r -> onTimeSeriesResponse(r, INTRA_DAY) },
             Fetcher.FailureCallback { e -> onError(e) }
         )
     }
@@ -96,9 +100,44 @@ class ViewStockPresenterImpl(
 
     }
 
-    private fun onTimeSeriesResponse(response: TimeSeriesResponse){
-        GlobalScope.launch(Dispatchers.Main){
-            view?.onTimeSeriesResult(response)
+    private fun getDaysAgo(daysAgo: Int): Date {
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_YEAR, -daysAgo)
+        return calendar.time
+    }
+
+    private fun getMonthsAgo(monthsAgo: Int): Date {
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.MONTH, -monthsAgo)
+        return calendar.time
+    }
+
+    private fun onTimeSeriesResponse(
+        response: TimeSeriesResponse,
+        viewStockSetting: ViewStockSetting
+    ){
+        if (response.errorMessage == null) {
+            val valuesPredicate: (StockUnit) -> Boolean = when(viewStockSetting) {
+                INTRA_WEEKLY -> { unit ->
+                    SimpleDateFormat(viewStockSetting.inputDateFormat)
+                        .parse(unit.date)
+                        .after(getDaysAgo(daysAgo = 7))
+                }
+                INTRA_MONTHLY -> { unit ->
+                    SimpleDateFormat(viewStockSetting.inputDateFormat)
+                        .parse(unit.date)
+                        .after(getMonthsAgo(monthsAgo = 1))
+                }
+                INTRA_DAY, ALL -> { _ -> true }
+            }
+            val filteredStockValues = response.stockUnits.filter(valuesPredicate)
+            GlobalScope.launch(Dispatchers.Main){
+                view?.onTimeSeriesResult(filteredStockValues, viewStockSetting)
+            }
+        } else {
+            GlobalScope.launch(Dispatchers.Main){
+                view?.onTimeSeriesFailed(response.errorMessage)
+            }
         }
     }
 
@@ -115,7 +154,7 @@ class ViewStockPresenterImpl(
 
     override fun updateIfInWatchList(company: Company){
         GlobalScope.launch(Dispatchers.IO) {
-            if(repository.exists(company)){
+            if (repository.exists(company)) {
                 repository.save(company, quote)
             }
         }

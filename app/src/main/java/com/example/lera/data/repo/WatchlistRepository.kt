@@ -3,6 +3,7 @@ package com.example.lera.data.repo
 import com.crazzyghost.alphavantage.AlphaVantage
 import com.crazzyghost.alphavantage.AlphaVantageException
 import com.crazzyghost.alphavantage.Fetcher
+import com.crazzyghost.alphavantage.parameters.OutputSize
 import com.crazzyghost.alphavantage.timeseries.response.QuoteResponse
 import com.crazzyghost.alphavantage.timeseries.response.TimeSeriesResponse
 import com.example.lera.data.DatabaseManager
@@ -13,7 +14,7 @@ import io.objectbox.Box
 import io.objectbox.kotlin.boxFor
 
 /**
- * A database proxy to access 'saved' items.
+ * A database proxy to access 'watched' items.
  */
 class WatchListRepository(database: DatabaseManager){
 
@@ -65,7 +66,7 @@ class WatchListRepository(database: DatabaseManager){
         return box.all
     }
 
-    fun delete(item: WatchListItem) {
+    fun delete(item: Company) {
         box.query()
             .equal(WatchListItem_.name, item.name)
             .and()
@@ -100,6 +101,7 @@ class WatchListRepository(database: DatabaseManager){
         AlphaVantage.api()
             .timeSeries()
             .daily()
+            .outputSize(OutputSize.COMPACT)
             .forSymbol(symbol)
             .onSuccess(onSuccessCallback)
             .onFailure(onFailureCallback)

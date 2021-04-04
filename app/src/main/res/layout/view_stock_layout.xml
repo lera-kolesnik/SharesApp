@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark">
+
+    <include
+        android:id="@+id/actionBar"
+        layout="@layout/view_stock_action_bar_layout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/bannerHighTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:text=""
+        android:textColor="@color/colorPrimary"
+        android:textSize="28dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/graph"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/actionBar" />
+
+    <TextView
+        android:id="@+id/percentChangeTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bannerHighTv" />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/graph"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        app:layout_constraintTop_toBottomOf="@id/percentChangeTv" />
+
+    <Button
+        android:id="@+id/inner_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/grey"
+        android:text="D"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/weekly"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/graph" />
+
+    <Button
+        android:id="@+id/weekly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/grey"
+        android:text="W"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/monthly"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/inner_day"
+        app:layout_constraintTop_toBottomOf="@+id/graph" />
+
+    <Button
+        android:id="@+id/monthly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/grey"
+        android:text="M"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/all"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/weekly"
+        app:layout_constraintTop_toBottomOf="@+id/graph" />
+
+    <Button
+        android:id="@+id/all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/grey"
+        android:text="All"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/monthly"
+        app:layout_constraintTop_toBottomOf="@+id/graph" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="150dp"
+        android:tint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@id/graph"
+        app:layout_constraintEnd_toEndOf="@id/graph"
+        app:layout_constraintStart_toStartOf="@id/graph"
+        app:layout_constraintTop_toTopOf="@id/graph" />
+
+
+    <TextView
+        android:id="@+id/previous_close_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="Previous Close"
+        app:layout_constraintBottom_toTopOf="@+id/open_label"
+        app:layout_constraintStart_toStartOf="@+id/open_label"
+        app:layout_constraintTop_toBottomOf="@+id/inner_day" />
+
+    <TextView
+        android:id="@+id/previousCloseTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="00.00"
+        app:layout_constraintBottom_toTopOf="@+id/openTv"
+        app:layout_constraintStart_toEndOf="@+id/previous_close_label"
+        app:layout_constraintStart_toStartOf="@+id/openTv"
+        app:layout_constraintTop_toBottomOf="@+id/monthly" />
+
+
+    <TextView
+        android:id="@+id/open_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="Open"
+        app:layout_constraintBottom_toTopOf="@+id/high_label"
+        app:layout_constraintStart_toStartOf="@+id/high_label"
+        app:layout_constraintTop_toBottomOf="@+id/previous_close_label" />
+
+    <TextView
+        android:id="@+id/openTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="00.00"
+        app:layout_constraintBottom_toTopOf="@+id/highTv"
+        app:layout_constraintStart_toEndOf="@+id/open_label"
+        app:layout_constraintStart_toStartOf="@+id/highTv"
+        app:layout_constraintTop_toBottomOf="@+id/previousCloseTv" />
+
+    <TextView
+        android:id="@+id/high_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="Today's High"
+        app:layout_constraintBottom_toTopOf="@+id/low_label"
+        app:layout_constraintStart_toStartOf="@+id/low_label"
+        app:layout_constraintTop_toBottomOf="@+id/open_label" />
+
+    <TextView
+        android:id="@+id/highTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="00.00"
+        app:layout_constraintBottom_toTopOf="@+id/lowTv"
+        app:layout_constraintStart_toEndOf="@+id/high_label"
+        app:layout_constraintStart_toStartOf="@+id/lowTv"
+        app:layout_constraintTop_toBottomOf="@+id/openTv" />
+
+    <TextView
+        android:id="@+id/low_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="Today's Low"
+        app:layout_constraintBottom_toTopOf="@+id/volume_label"
+        app:layout_constraintStart_toStartOf="@+id/volume_label"
+        app:layout_constraintTop_toBottomOf="@+id/high_label" />
+
+    <TextView
+        android:id="@+id/lowTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="00.00"
+        app:layout_constraintBottom_toTopOf="@+id/volumeTv"
+        app:layout_constraintStart_toEndOf="@+id/low_label"
+        app:layout_constraintStart_toStartOf="@+id/volumeTv"
+        app:layout_constraintTop_toBottomOf="@+id/highTv" />
+
+
+    <TextView
+        android:id="@+id/volume_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="Volume"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/volumeTv"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/low_label" />
+
+    <TextView
+        android:id="@+id/volumeTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="00.00"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/volume_label"
+        app:layout_constraintTop_toBottomOf="@+id/lowTv" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

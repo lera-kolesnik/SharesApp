@@ -5,7 +5,6 @@ import io.objectbox.annotation.Id;
 
 /**
  * Data entity to hold data about watch list item.
- * TODO Further extend logic to render saved items.
  */
 @Entity
 data class WatchListItem (

@@ -19,5 +19,6 @@ data class Company (
         },
         var price: Double? = null,
         var priceChange: Double? = null,
-        var changePercent: Double? = null
+        var changePercent: Double? = null,
+        var isFavourite: Boolean = false
 )
